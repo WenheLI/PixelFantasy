@@ -1,7 +1,13 @@
+
 class Hand {
-    constructor(cubes, type) {
-        this.cubes = cubes;
-        this.type = type;
+    constructor(scene_, type_) {
+        this.cubes = [];
+        this.scene = scene_;
+        for (let i = 0; i < 20; i++) {
+            this.cubes.push(new Cube(10, new THREE.Color( 0xff0000 ), this.scene));
+        }
+
+        this.type = type_;
     }
 
     update(res) {
@@ -13,7 +19,8 @@ class Hand {
                 hand.fingers.forEach((finger) => {
                     let bones = finger.bones;
                     bones.forEach((bone) => {
-                        this.cubes[index].position.set(bone.center()[0], bone.center()[1] - 200,  bone.center()[2] - 400);
+                        this.cubes[index].update(bone);
+                        this.cubes[index].checkVel();
                         index++;
                     })
                 })
@@ -21,20 +28,12 @@ class Hand {
         });
         if (!hasHand) {
             this.cubes.forEach((cube) => {
-                cube.position.set(0, 0, 0);
+                cube.reset();
             })
         }
 
     }
-
-    draw() {
-        this.cubes.forEach((cube) => {
-            cube.rotation.x += 0.1;
-            cube.rotation.y += 0.1;
-        });
-    }
 }
 
-export {Hand}
 
 

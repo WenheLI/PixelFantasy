@@ -3,26 +3,26 @@
 let res = [];
 
 Leap.loop((frame) => {
-   // output.innerHTML = 'Frame: ' + frame.id;
-   res = [];
-   if (frame.hands.length !== 0) {
-       frame.hands.forEach((hand) => {
-           // console.log(hand);
-           res.push(hand);
-           if (res.length === 2) {
-               if (res[0].type === 'left') {
-                   let temp = res[0];
-                   res[0] = res[1];
-                   res[0] = temp;
-               }
-           }
-       })
-   }
+    // output.innerHTML = 'Frame: ' + frame.id;
+    res = [];
+    if (frame.hands.length !== 0) {
+        frame.hands.forEach((hand) => {
+            // console.log(hand);
+            res.push(hand);
+            if (res.length === 2) {
+                if (res[0].type === 'left') {
+                    let temp = res[0];
+                    res[0] = res[1];
+                    res[0] = temp;
+                }
+            }
+        })
+    }
 });
 
 
 let getRes = () => {
-  return res;
+    return res;
 };
 
 
@@ -77,7 +77,7 @@ let isStretched = () => {
 };
 
 let isDrawing = () => {
-  let ans = [false, false];
+    let ans = [false, false];
 
     for (let i = 0; i < res.length; i++) {
         if (res[0].fingers[0].extended && res[0].fingers[1].extended) {
@@ -86,7 +86,3 @@ let isDrawing = () => {
     }
     return ans;
 };
-
-export {
-    getRes
-}

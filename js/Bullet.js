@@ -22,7 +22,3 @@ class Bullet {
         this.cube.rotation.x += .1;
     }
 }
-
-export {
-    Bullet
-}
