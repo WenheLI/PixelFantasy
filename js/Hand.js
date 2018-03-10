@@ -1,4 +1,3 @@
-
 class Hand {
     constructor(scene_, type_) {
         this.cubes = [];
@@ -10,7 +9,7 @@ class Hand {
         this.type = type_;
     }
 
-    update(res) {
+    update(res, bullets) {
         let hasHand = false;
         res.forEach((hand) => {
             if (hand.type === this.type) {
@@ -20,7 +19,7 @@ class Hand {
                     let bones = finger.bones;
                     bones.forEach((bone) => {
                         this.cubes[index].update(bone);
-                        this.cubes[index].checkVel();
+                        this.cubes[index].checkVel(bullets);
                         index++;
                     })
                 })
@@ -34,6 +33,5 @@ class Hand {
 
     }
 }
-
 
 

@@ -1,24 +1,36 @@
 class Bullet {
-    constructor(cube) {
-        this.cube = cube;
-        this.ppos = cube.position;
-        this.pos = cube.postion;
+    constructor(cube_) {
+        this.isDead = false;
 
-        this.speed = [0 ,0 ,0];
+        this.cube = cube_;
+
+        this.size = this.cube.size;
+        this.color = this.cube.color;
+        this.scene = this.cube.scene;
+
+        this.pos = this.cube.pos.clone();
+        this.vel = this.cube.vel.clone();
+
+        this.geometry = new THREE.BoxGeometry( this.size, this.size, this.size );
+        this.material = new THREE.MeshBasicMaterial( { color: this.color } );
+
+        this.obj = new THREE.Mesh(this.geometry, this.material);
+        this.scene.add(this.obj);
+
     }
 
-    update(bone) {
-        this.ppos = this.pos;
-        this.pos = bone.center();
+    update() {
+        this.pos.add(this.vel.normalize().multiplyScalar(3.5));
 
-        for (let i = 0; i < 3; i++) {
-            this.speed[i] = this.pos[i] - this.ppos[i];
+
+        this.obj.position.set(this.pos.x, this.pos.y, this.pos.z);
+
+        this.obj.rotation.x += .1;
+        this.obj.rotation.y += .1;
+
+        if (this.pos.z < -800 && !this.isDead) {
+            this.cube.isFly = false;
+            this.isDead = true;
         }
-
-        this.cube.position.set(this.pos[0], this.pos[1], this.pos[2]);
-    }
-
-    draw() {
-        this.cube.rotation.x += .1;
     }
 }
