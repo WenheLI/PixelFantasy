@@ -5,8 +5,11 @@ class Bullet {
         this.cube = cube_;
 
         this.size = this.cube.size;
+
         this.color = this.cube.color;
         this.scene = this.cube.scene;
+
+
 
         this.pos = this.cube.pos.clone();
         this.vel = this.cube.vel.clone();
