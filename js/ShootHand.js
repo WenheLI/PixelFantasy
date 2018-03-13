@@ -1,4 +1,4 @@
-class Hand {
+class ShootHand {
     constructor(scene_, type_) {
         this.cubes = [];
         this.scene = scene_;

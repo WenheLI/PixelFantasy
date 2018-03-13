@@ -22,6 +22,7 @@ class Cube {
 
     update(data) {
         this.still(data);
+        //upate' cloud
         this.material.wireframe = this.isFly;
     }
 
