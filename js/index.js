@@ -23,11 +23,14 @@ let animate = function () {
     requestAnimationFrame(animate);
     ans = getRes();
     right.update(ans, bullets);
-    canvases.forEach((canvas) => {
-       // canvas.updateRotation();
-    });
+
     bullets.forEach((bullet) => {
         bullet.update();
+    });
+    canvases.forEach((canvas) => {
+        // canvas.updateRotation();
+        canvas.updateImprints(bullets);
+        // canvas.updateRotation();
     });
 
     renderer.render(scene, camera);
