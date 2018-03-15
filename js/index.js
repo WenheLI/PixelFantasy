@@ -18,6 +18,21 @@ canvases.push(new Canvas(0, scene, 300, 200, 0, 0, -400));
 camera.up = 1;
 camera.position.z = 100;
 
+let x = 100, y = 10;
+
+let heartShape = new THREE.Shape();
+
+// heartShape.moveTo(x + 0, y + 0);
+// heartShape.lineTo(x + 10, y + 0);
+// heartShape.lineTo(x + 10, y + 10);
+// heartShape.lineTo(x + 0, y + 10);
+//
+//
+// let geometry = new THREE.ShapeBufferGeometry( heartShape );
+// let material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+// let mesh = new THREE.Mesh( geometry, material ) ;
+// scene.add( mesh );
+
 
 let animate = function () {
     requestAnimationFrame(animate);
@@ -28,7 +43,7 @@ let animate = function () {
         bullet.update();
     });
     canvases.forEach((canvas) => {
-        // canvas.updateRotation();
+        canvas.updateRotation();
         canvas.updateImprints(bullets);
         // canvas.updateRotation();
     });

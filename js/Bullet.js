@@ -28,7 +28,7 @@ class Bullet {
 
         this.scene.add(this.obj);
 
-        this.generatePointCloud(1);
+        this.generatePointCloud(200);
 
     }
 
@@ -60,8 +60,6 @@ class Bullet {
             this.vertices2D.push([new THREE.Vector3(s,s,s), new THREE.Vector3(s,s,-s), new THREE.Vector3(-s,s,-s), new THREE.Vector3(-s,s,s)]);
             this.vertices2D.push([new THREE.Vector3(s,-s,s), new THREE.Vector3(s,-s,-s), new THREE.Vector3(-s,-s,-s), new THREE.Vector3(-s,-s,s)]);
         }
-
-
 
 
         if (this.pointCloud.length === 0) {
@@ -101,22 +99,19 @@ class Bullet {
             }
             this.oriPointCloud.push(temp);
         }
-        // console.log(this.pointCloud[0][0]);
-        //
-        // console.log(this.oriPointCloud[0][0]);
 
-        //
-        for (let i = 0; i < this.pointCloud.length; i++) {
-            for (let j = 0; j < this.pointCloud[i].length; j++) {
-                let g = new THREE.BoxGeometry(5,5,5);
-                let m = new THREE.Mesh(g);
-                m.position.x = this.pointCloud[i][j].x;
-                m.position.y = this.pointCloud[i][j].y;
-                m.position.z = this.pointCloud[i][j].z;
-                this.instance.push(m);
-                this.scene.add(m)
-            }
-        }
+        // // visualization of point cloud
+        // for (let i = 0; i < this.pointCloud.length; i++) {
+        //     for (let j = 0; j < this.pointCloud[i].length; j++) {
+        //         let g = new THREE.BoxGeometry(5,5,5);
+        //         let m = new THREE.Mesh(g);
+        //         m.position.x = this.pointCloud[i][j].x;
+        //         m.position.y = this.pointCloud[i][j].y;
+        //         m.position.z = this.pointCloud[i][j].z;
+        //         this.instance.push(m);
+        //         this.scene.add(m)
+        //     }
+        // }
 
         // console.log(this.cube.pos);
     }
@@ -124,40 +119,20 @@ class Bullet {
 
     updatePointCloud() {
 
-
         for (let i = 0; i < this.pointCloud.length; i++) {
             for (let j = 0; j < this.pointCloud[i].length; j++) {
                 this.pointCloud[i][j] = this.oriPointCloud[i][j].clone();
             }
         }
 
-
-        // let position = new THREE.Vector3();
-        // let quaternion = new THREE.Quaternion();
-        // let scale = new THREE.Vector3();
-        // this.obj.matrixWorld.decompose(position, quaternion, scale);
         for (let i = 0; i < this.pointCloud.length; i++) {
             for (let j = 0; j < this.pointCloud[i].length; j++) {
                 this.pointCloud[i][j].applyMatrix4(this.obj.matrix);
-                this.instance[2*i + j].position.x = this.pointCloud[i][j].x;
-                this.instance[2*i + j].position.y = this.pointCloud[i][j].y;
-                this.instance[2*i + j].position.z = this.pointCloud[i][j].z;
+                // this.instance[2*i + j].position.x = this.pointCloud[i][j].x;
+                // this.instance[2*i + j].position.y = this.pointCloud[i][j].y;
+                // this.instance[2*i + j].position.z = this.pointCloud[i][j].z;
             }
         }
-        // this.pointCloud.forEach((points) => {
-        //     points.forEach((point) => {
-        //         console.log(point);
-        //         point.applyMatrix4(this.obj.matrix);
-        //         this.instance.position.x = point.x;
-        //         this.instance.position.y = point.y;
-        //         this.instance.position.z = point.z;
-        //     })
-        // });
-
-
-
-        // console.log(this.pointCloud[0][0]);
-        // console.log(this.obj.position);
     }
 
     //pointCloud [ [ THREE.Vector3 * resolution] * 12 ]
