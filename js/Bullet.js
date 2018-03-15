@@ -28,13 +28,12 @@ class Bullet {
 
         this.scene.add(this.obj);
 
-        this.generatePointCloud(200);
+        this.generatePointCloud(400);
 
     }
 
     update() {
         this.pos.add(this.vel.normalize().multiplyScalar(1.5));
-
 
         this.obj.position.x = this.pos.x;
         this.obj.position.y = this.pos.y;
@@ -45,9 +44,12 @@ class Bullet {
 
         this.updatePointCloud();
 
-        if (this.pos.z < -800 && !this.isDead) {
+        if (this.pos.z < -600 && !this.isDead) {
+            console.log("bullet removed");
             this.cube.isFly = false;
+            // this.cube.isDisplay = true;
             this.isDead = true;
+            this.scene.remove( this.obj );
         }
     }
 

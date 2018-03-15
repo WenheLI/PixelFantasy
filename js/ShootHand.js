@@ -3,7 +3,7 @@ class ShootHand {
         this.cubes = [];
         this.scene = scene_;
         for (let i = 0; i < 20; i++) {
-            this.cubes.push(new Cube(10, new THREE.Color( 0xff0000 ), this.scene));
+            this.cubes.push(new Cube(20, '#'+Math.floor(Math.random()*16777215).toString(16), this.scene));
         }
 
         this.type = type_;

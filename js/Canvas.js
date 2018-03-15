@@ -12,7 +12,7 @@ class Canvas {
 
         //canvas surface
         this.planeGeometry = new THREE.PlaneBufferGeometry(sizeX, sizeY);
-        this.planeMaterial = new THREE.MeshBasicMaterial({color: 0xffff00, side: THREE.DoubleSide});
+        this.planeMaterial = new THREE.MeshBasicMaterial({color: 0xffffff, side: THREE.DoubleSide});
         this.surfaceObj = new THREE.Mesh(this.planeGeometry, this.planeMaterial);
         this.surfaceObj.position.set(this.pos.x, this.pos.y, this.pos.z);
 
@@ -40,19 +40,20 @@ class Canvas {
         // this.frameObj.rotation.y += 0.1;
         // this.surfaceObj.rotation.y += 0.1;
         this.updateCoordinateVectors();
+        this.updatePlane();
     }
 
     updateImprints(bullets) {
         // console.log(bullets);
         bullets.forEach((bullet) => {
             //only check when this bullet is close enough to improve performance
-            if (this.plane.distanceToPoint(bullet.pos) < bullet.size) {
+            if (this.plane.distanceToPoint(bullet.pos) < bullet.size * 1.4) {
                 let collidingPoints = this.checkCollision(bullet);
                 if (collidingPoints.length > 0) {
-                    console.log(collidingPoints);
+                    // console.log(collidingPoints);
                     collidingPoints = this.transformToCanvasCoordinate(collidingPoints);
                     collidingPoints = this.sortWithJarvisMarch(collidingPoints);
-                    this.addImprints(collidingPoints);
+                    this.addImprints(collidingPoints,bullet.color);
                 }
             }
         });
@@ -68,9 +69,10 @@ class Canvas {
             points.forEach((point) => {
                 let pointToCenter = new THREE.Vector3(point.x - this.pos.x, point.y - this.pos.y, point.z - this.pos.z);
                 // console.log(pointToCenter.dot(this.unitVectorZ));
+
                 if (Math.abs(pointToCenter.dot(this.unitVectorZ)) < 0.01) {
                     collidingPoints.push(point);
-                    console.log("hit");
+                    // console.log("hit");
                     // let geo = new THREE.BoxBufferGeometry(10);
                     // let mat = new THREE.MeshBasicMaterial({color: 0xffffff});
                     // let cube = new THREE.Mesh(geo, mat);
@@ -93,13 +95,13 @@ class Canvas {
     }
 
     sortWithJarvisMarch(inputs) {
-        console.log(inputs);
+        // console.log(inputs);
         let jm = new JarvisMarch(inputs);
-        console.log(jm.jarvisMarch());
+        // console.log(jm.jarvisMarch());
         return jm.jarvisMarch();
     }
 
-    addImprints(collidingPoints) {
+    addImprints(collidingPoints, color) {
         // console.log(collidingPoints);
         let imprintShape = new THREE.Shape();
         let currentPoint = collidingPoints[0];
@@ -109,7 +111,7 @@ class Canvas {
         }
 
         let imprintGeometry = new THREE.ShapeBufferGeometry(imprintShape);
-        let imprintMaterial = new THREE.MeshBasicMaterial({color: 0x00ff00});
+        let imprintMaterial = new THREE.MeshBasicMaterial({color: color});
         let imprintMesh = new THREE.Mesh(imprintGeometry, imprintMaterial);
 
         this.scene.add(imprintMesh);
@@ -145,5 +147,8 @@ class Canvas {
         // this.line.geometry.vertices[0] = this.pos.clone();
         // this.line.geometry.vertices[1] = this.pos.clone().add(this.unitVectorZ.multiply(1100));
         // scene.add(this.line);
+    }
+    updatePlane(){
+        this.plane.set(this.unitVectorZ, this.pos.length());
     }
 }

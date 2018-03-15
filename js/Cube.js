@@ -30,7 +30,7 @@ class Cube {
         this.ppos.set(0, 0, 0);
         this.pos.set(0, 0, 0);
         this.vel.set(0, 0, 0);
-
+        // this.material.color = '#'+Math.floor(Math.random()*16777215).toString(16);
         this.material.wireframe = false;
 
         this.obj.position.set(this.pos);
