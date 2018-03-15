@@ -117,7 +117,7 @@ class Canvas {
 
         imprintMesh.position.x = this.pos.x;
         imprintMesh.position.y = this.pos.y;
-        imprintMesh.position.z = this.pos.z + 100;
+        imprintMesh.position.z = this.pos.z + 1;
 
         this.imprints.push(imprintMesh);
 
