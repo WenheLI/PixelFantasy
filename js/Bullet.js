@@ -4,6 +4,8 @@ class Bullet {
 
         this.cube = cube_;
 
+        this.life = 0;
+
         this.size = this.cube.size;
         this.color = this.cube.color;
         this.scene = this.cube.scene;
@@ -42,9 +44,11 @@ class Bullet {
         this.obj.rotation.x += .1;
         this.obj.rotation.y += .1;
 
+        this.life ++;
+
         this.updatePointCloud();
 
-        if (this.pos.z < -600 && !this.isDead) {
+        if (this.life > 500) {
             console.log("bullet removed");
             this.cube.isFly = false;
             // this.cube.isDisplay = true;
