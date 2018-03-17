@@ -53,7 +53,7 @@ class Canvas {
         this.surfaceObj.rotation.z += 0.01;
         this.updateEuler();
         this.updateCoordinateVectors();
-        // this.updatePlane();
+        this.updatePlane();
 
     }
 
@@ -62,7 +62,7 @@ class Canvas {
         bullets.forEach((bullet) => {
             //only check when this bullet is close enough to improve performance
 
-            // if (this.plane.distanceToPoint(bullet.pos) < bullet.size * 1.5) {
+            if (this.plane.distanceToPoint(bullet.pos) < bullet.size * 1.5) {
             //     console.log('checking');
                 let collidingPoints = this.checkCollision(bullet);
                 if (collidingPoints.length > 0) {
@@ -71,7 +71,7 @@ class Canvas {
                     collidingPoints = this.sortWithJarvisMarch(collidingPoints);
                     this.addImprints(collidingPoints, bullet.color);
                 }
-            // }
+            }
         });
         this.translateImprints();
 
