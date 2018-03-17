@@ -13,25 +13,12 @@ renderer.setSize(width, height);
 
 // let left = new FunctionHand(scene, "left");
 let right = new ShootHand(scene, "right");
-canvases.push(new Canvas(0, scene, 600, 400, 0, 0, -600));
+canvases.push(new Canvas(0, scene, 800, 400, 0, 0, -600));
 
 camera.up = 1;
 camera.position.z = 0;
 
 let x = 100, y = 10;
-
-let heartShape = new THREE.Shape();
-
-// heartShape.moveTo(x + 0, y + 0);
-// heartShape.lineTo(x + 10, y + 0);
-// heartShape.lineTo(x + 10, y + 10);
-// heartShape.lineTo(x + 0, y + 10);
-//
-//
-// let geometry = new THREE.ShapeBufferGeometry( heartShape );
-// let material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-// let mesh = new THREE.Mesh( geometry, material ) ;
-// scene.add( mesh );
 
 
 let animate = function () {
@@ -44,11 +31,9 @@ let animate = function () {
     // });
     for(let i = 0; i < bullets.length; i++){
         bullets[i].update();
-        if(bullets[i].isDead){
-            bullets.splice(i,1);
-            // i--;
-        }
     }
+
+
 
     canvases.forEach((canvas) => {
         canvas.updateRotation();
@@ -57,7 +42,16 @@ let animate = function () {
     });
 
 
+
     renderer.render(scene, camera);
+
+    for(let i =  bullets.length - 1; i >= 0; i--){
+        if(bullets[i].isDead){
+            bullets.splice(i,1);
+            // i--;
+        }
+    }
+
 };
 
 animate();
