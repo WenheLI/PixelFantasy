@@ -119,7 +119,7 @@ class Canvas {
         return outputs;
     }
 
-    asortWithJarvisMarch(inputs) {
+    sortWithJarvisMarch(inputs) {
         // console.log(inputs);
         let jm = new JarvisMarch(inputs);
         // console.log(jm.jarvisMarch());
