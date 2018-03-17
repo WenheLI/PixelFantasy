@@ -28,7 +28,7 @@ class Bullet {
 
         this.scene.add(this.obj);
 
-        this.generatePointCloud(400);
+        this.generatePointCloud(200);
 
     }
 
@@ -44,7 +44,7 @@ class Bullet {
 
         this.updatePointCloud();
 
-        if (this.pos.z < -600 && !this.isDead) {
+        if (this.pos.z < -1000 && !this.isDead) {
             console.log("bullet removed");
             this.cube.isFly = false;
             // this.cube.isDisplay = true;

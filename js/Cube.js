@@ -30,14 +30,14 @@ class Cube {
         this.ppos.set(0, 0, 0);
         this.pos.set(0, 0, 0);
         this.vel.set(0, 0, 0);
-        // this.material.color = '#'+Math.floor(Math.random()*16777215).toString(16);
+        this.material.color.setHex(Math.random() * 0xffffff);
         this.material.wireframe = false;
 
         this.obj.position.set(this.pos);
     }
 
     checkVel(bullets) {
-        if (this.vel.distanceTo(new THREE.Vector3(0, 0, 0)) > 65 && !this.ppos.equals(new THREE.Vector3(0, 0, 0)) && !this.isFly) {
+        if (this.vel.distanceTo(new THREE.Vector3(0, 0, 0)) > 65 && this.vel.z < 0 && !this.ppos.equals(new THREE.Vector3(0, 0, 0)) && !this.isFly) {
             this.isDisplay = false;
             this.isFly = true;
             bullets.push(new Bullet(this));

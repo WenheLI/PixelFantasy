@@ -13,7 +13,7 @@ renderer.setSize(width, height);
 
 // let left = new FunctionHand(scene, "left");
 let right = new ShootHand(scene, "right");
-canvases.push(new Canvas(0, scene, 800, 400, 0, 0, -600));
+canvases.push(new Canvas(0, scene, 600, 400, 0, 0, -600));
 
 camera.up = 1;
 camera.position.z = 0;
@@ -45,7 +45,7 @@ let animate = function () {
     for(let i = 0; i < bullets.length; i++){
         bullets[i].update();
         if(bullets[i].isDead){
-            bullets.splice(i,i+1);
+            bullets.splice(i,1);
             // i--;
         }
     }

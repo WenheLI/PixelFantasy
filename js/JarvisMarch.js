@@ -1,7 +1,8 @@
 class JarvisMarch {
+    //the JarvisMarch class is built to sort an array of points
+    //in the sorted order, they can be connected and build a polygon
     constructor(points) {
         this.points = points;
-
     }
 
     compare(a, b) {
