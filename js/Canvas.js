@@ -1,7 +1,9 @@
 class Canvas {
-    constructor(index, scene_, sizeX, sizeY, posX, posY, posZ) {
+    constructor(index, scene, sizeX, sizeY, posX, posY, posZ, color) {
 
-        this.scene = scene_;
+        this.index = index;
+
+        this.scene = scene;
 
         this.pos = new THREE.Vector3(posX, posY, posZ);
         this.size = new THREE.Vector2(sizeX, sizeY);
@@ -10,7 +12,7 @@ class Canvas {
 
         //canvas surface
         this.planeGeometry = new THREE.PlaneBufferGeometry(sizeX, sizeY);
-        this.planeMaterial = new THREE.MeshBasicMaterial({color: 0xffffff, side: THREE.DoubleSide});
+        this.planeMaterial = new THREE.MeshBasicMaterial({color: color, side: THREE.DoubleSide});
         this.surfaceObj = new THREE.Mesh(this.planeGeometry, this.planeMaterial);
         this.surfaceObj.position.set(this.pos.x, this.pos.y, this.pos.z);
 
@@ -48,9 +50,14 @@ class Canvas {
     }
 
     updateRotation() {
-        //
+
+        this.frameObj.rotation.x += 0.01;
+        this.surfaceObj.rotation.x += 0.01;
+        this.frameObj.rotation.y += 0.01;
+        this.surfaceObj.rotation.y += 0.01;
         this.frameObj.rotation.z += 0.01;
         this.surfaceObj.rotation.z += 0.01;
+
         this.updateEuler();
         this.updateCoordinateVectors();
         this.updatePlane();
@@ -62,7 +69,7 @@ class Canvas {
         bullets.forEach((bullet) => {
             //only check when this bullet is close enough to improve performance
 
-            if (this.plane.distanceToPoint(bullet.pos) < bullet.size * 1.5) {
+            if (bullet.isNearCanvas) {
             //     console.log('checking');
                 let collidingPoints = this.checkCollision(bullet);
                 if (collidingPoints.length > 0) {
@@ -121,9 +128,9 @@ class Canvas {
 
     sortWithJarvisMarch(inputs) {
         // console.log(inputs);
-        let jm = new JarvisMarch(inputs);
+        return new JarvisMarch(inputs).jarvisMarch();
         // console.log(jm.jarvisMarch());
-        return jm.jarvisMarch();
+        // return jm.jarvisMarch();
     }
 
     addImprints(collidingPoints, color) {
@@ -136,7 +143,7 @@ class Canvas {
         }
 
         let imprintGeometry = new THREE.ShapeBufferGeometry(imprintShape);
-        let imprintMaterial = new THREE.MeshBasicMaterial({color: color});
+        let imprintMaterial = new THREE.MeshBasicMaterial({color: color, side: THREE.DoubleSide});
         let imprintMeshFront = new THREE.Mesh(imprintGeometry, imprintMaterial);
         let imprintMeshBack = new THREE.Mesh(imprintGeometry, imprintMaterial);
 

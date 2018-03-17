@@ -1,6 +1,7 @@
 class Bullet {
     constructor(cube_) {
         this.isDead = false;
+        this.isNearCanvas = false;
 
         this.cube = cube_;
 
@@ -30,7 +31,7 @@ class Bullet {
 
         this.scene.add(this.obj);
 
-        this.generatePointCloud(400);
+        this.generatePointCloud(this.size*10);
 
     }
 
@@ -44,7 +45,7 @@ class Bullet {
         this.obj.rotation.x += .1;
         this.obj.rotation.y += .1;
 
-        this.life ++;
+        this.life++;
 
         this.updatePointCloud();
 
@@ -53,18 +54,17 @@ class Bullet {
             this.cube.isFly = false;
             // this.cube.isDisplay = true;
             this.isDead = true;
-            this.scene.remove( this.obj );
+            this.scene.remove(this.obj);
         }
     }
 
     generatePointCloud(resolution) {
 
 
-
         if (this.vertices2D.length === 0) {
-            let s = this.size/2;
-            this.vertices2D.push([new THREE.Vector3(s,s,s), new THREE.Vector3(s,s,-s), new THREE.Vector3(-s,s,-s), new THREE.Vector3(-s,s,s)]);
-            this.vertices2D.push([new THREE.Vector3(s,-s,s), new THREE.Vector3(s,-s,-s), new THREE.Vector3(-s,-s,-s), new THREE.Vector3(-s,-s,s)]);
+            let s = this.size / 2;
+            this.vertices2D.push([new THREE.Vector3(s, s, s), new THREE.Vector3(s, s, -s), new THREE.Vector3(-s, s, -s), new THREE.Vector3(-s, s, s)]);
+            this.vertices2D.push([new THREE.Vector3(s, -s, s), new THREE.Vector3(s, -s, -s), new THREE.Vector3(-s, -s, -s), new THREE.Vector3(-s, -s, s)]);
         }
 
 
@@ -122,21 +122,31 @@ class Bullet {
         // console.log(this.cube.pos);
     }
 
+    checkNearCanvas(canvas) {
+        this.isNearCanvas = (Math.abs(canvas.plane.distanceToPoint(this.pos)) < (this.size / 2) * 1.5);
+        // console.log(canvas.plane.distanceToPoint(this.pos));
+        // if (this.isNearCanvas) {
+        //     console.log("NEAR");
+        // }
+    }
 
     updatePointCloud() {
 
-        for (let i = 0; i < this.pointCloud.length; i++) {
-            for (let j = 0; j < this.pointCloud[i].length; j++) {
-                this.pointCloud[i][j] = this.oriPointCloud[i][j].clone();
-            }
-        }
+        if (this.isNearCanvas) {
 
-        for (let i = 0; i < this.pointCloud.length; i++) {
-            for (let j = 0; j < this.pointCloud[i].length; j++) {
-                this.pointCloud[i][j].applyMatrix4(this.obj.matrix);
-                // this.instance[2*i + j].position.x = this.pointCloud[i][j].x;
-                // this.instance[2*i + j].position.y = this.pointCloud[i][j].y;
-                // this.instance[2*i + j].position.z = this.pointCloud[i][j].z;
+            for (let i = 0; i < this.pointCloud.length; i++) {
+                for (let j = 0; j < this.pointCloud[i].length; j++) {
+                    this.pointCloud[i][j] = this.oriPointCloud[i][j].clone();
+                }
+            }
+
+            for (let i = 0; i < this.pointCloud.length; i++) {
+                for (let j = 0; j < this.pointCloud[i].length; j++) {
+                    this.pointCloud[i][j].applyMatrix4(this.obj.matrix);
+                    // this.instance[2*i + j].position.x = this.pointCloud[i][j].x;
+                    // this.instance[2*i + j].position.y = this.pointCloud[i][j].y;
+                    // this.instance[2*i + j].position.z = this.pointCloud[i][j].z;
+                }
             }
         }
     }
