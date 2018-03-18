@@ -13,6 +13,7 @@ class ShootHand {
         let hasHand = false;
         res.forEach((hand) => {
             if (hand.type === this.type) {
+                // console.log(hand);
                 hasHand = true;
                 let index = 0;
                 hand.fingers.forEach((finger) => {

@@ -49,7 +49,7 @@ class Bullet {
 
         this.updatePointCloud();
 
-        if (this.life > 500) {
+        if (this.life > 300) {
             console.log("bullet removed");
             this.cube.isFly = false;
             // this.cube.isDisplay = true;

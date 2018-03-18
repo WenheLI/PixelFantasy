@@ -12,7 +12,9 @@ let renderer = new THREE.WebGLRenderer({canvas: document.getElementById('three_c
 renderer.setSize(width, height);
 
 // let left = new FunctionHand(scene, "left");
-let right = new ShootHand(scene, "right");
+let right = new ShootHand(scene, "left");
+let left = new ControlHand(scene, "right");
+
 canvases.push(new Canvas(0, scene, 800, 400, 0, 0, -600, 0xffffff));
 // canvases.push(new Canvas(1, scene, 800, 400, 0, 0, -600, 0x222222));
 
@@ -23,38 +25,48 @@ let x = 100, y = 10;
 
 
 let animate = function () {
-        requestAnimationFrame(animate);
-        ans = getRes();
-        right.update(ans, bullets);
+    requestAnimationFrame(animate);
+    ans = getRes();
+    right.update(ans, bullets);
+    left.update(ans);
 
-        // bullets.forEach((bullet) => {
-        //     bullet.update();
-        // });
-        for (let i = 0; i < bullets.length; i++) {
-            bullets[i].update();
-            canvases.forEach((canvas) => {
-                bullets[i].checkNearCanvas(canvas);
-            });
-        }
-
-
+    // bullets.forEach((bullet) => {
+    //     bullet.update();
+    // });
+    for (let i = 0; i < bullets.length; i++) {
+        bullets[i].update();
         canvases.forEach((canvas) => {
-            canvas.updateRotation();
-            canvas.updateImprints(bullets);
-            // canvas.updateRotation();
+            bullets[i].checkNearCanvas(canvas);
         });
-
-
-        renderer.render(scene, camera);
-
-        for (let i = bullets.length - 1; i >= 0; i--) {
-            if (bullets[i].isDead) {
-                bullets.splice(i, 1);
-                // i--;
-            }
-        }
-
     }
-;
+
+
+    canvases.forEach((canvas) => {
+        canvas.updateTranslation(left);
+        canvas.updateImprints(bullets);
+        // canvas.updateRotation();
+    });
+
+
+    renderer.render(scene, camera);
+
+    for (let i = bullets.length - 1; i >= 0; i--) {
+        if (bullets[i].isDead) {
+            bullets.splice(i, 1);
+            // i--;
+        }
+    }
+
+};
+
+window.addEventListener('resize', () => {
+    let windowHeight = window.innerHeight;
+    let windowWidth = window.innerWidth;
+
+    renderer.setSize(windowWidth, windowHeight);
+    camera.aspect = windowWidth / windowHeight;
+    camera.updateProjectionMatrix();
+    // console.log(camera.aspect);
+});
 
 animate();

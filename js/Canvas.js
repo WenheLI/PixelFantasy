@@ -5,9 +5,9 @@ class Canvas {
 
         this.scene = scene;
 
+        this.oriPos = new THREE.Vector3(posX, posY, posZ);
         this.pos = new THREE.Vector3(posX, posY, posZ);
         this.size = new THREE.Vector2(sizeX, sizeY);
-
 
 
         //canvas surface
@@ -49,18 +49,53 @@ class Canvas {
         this.imprintsBack = [];
     }
 
-    updateRotation() {
+    updateTranslation(controlHand) {
+        if (controlHand.hasHandOnce) {
+            let rotationX = 0;
+            let rotationY = 0;
+            let rotationZ = 0;
 
-        this.frameObj.rotation.x += 0.01;
-        this.surfaceObj.rotation.x += 0.01;
-        this.frameObj.rotation.y += 0.01;
-        this.surfaceObj.rotation.y += 0.01;
-        this.frameObj.rotation.z += 0.01;
-        this.surfaceObj.rotation.z += 0.01;
+            if (controlHand.hasHand) {
+                let relativeMovement = controlHand.relativePos;
+                this.pos.setX(relativeMovement.x);
+                this.pos.setY(relativeMovement.y);
+                this.pos.setZ(relativeMovement.z + this.oriPos.z);
+                rotationX = Math.asin(controlHand.normalVector.z);
+                rotationY = -Math.asin(controlHand.directionVector.x);
+                rotationZ = Math.asin(controlHand.normalVector.x);
+            } else {
+                this.pos = this.oriPos.clone();
+            }
 
-        this.updateEuler();
-        this.updateCoordinateVectors();
-        this.updatePlane();
+            // update position but not when it doesn't have hand for both current and previous
+            if (!(!controlHand.prevHasHand && !controlHand.hasHand)) {
+                this.frameObj.position.set(this.pos.x, this.pos.y, this.pos.z);
+                this.surfaceObj.position.set(this.pos.x, this.pos.y, this.pos.z);
+                this.imprintsFront.forEach((imprint) => {
+                    imprint.position.set(this.pos.x, this.pos.y, this.pos.z);
+                });
+                this.imprintsBack.forEach((imprint) => {
+                    imprint.position.set(this.pos.x, this.pos.y, this.pos.z);
+                });
+
+            }
+            let lerpSpeed = 0.4;
+            this.frameObj.rotation.x = THREE.Math.lerp(this.frameObj.rotation.x, rotationX, lerpSpeed);
+            this.surfaceObj.rotation.x = THREE.Math.lerp(this.surfaceObj.rotation.x, rotationX, lerpSpeed);
+            this.frameObj.rotation.y = THREE.Math.lerp(this.frameObj.rotation.y, rotationY, lerpSpeed);
+            this.surfaceObj.rotation.y = THREE.Math.lerp(this.surfaceObj.rotation.y, rotationY, lerpSpeed);
+            this.frameObj.rotation.z = THREE.Math.lerp(this.frameObj.rotation.z, rotationZ, lerpSpeed);
+            this.surfaceObj.rotation.z = THREE.Math.lerp(this.surfaceObj.rotation.z, rotationZ, lerpSpeed);
+        }
+
+        this
+            .updateEuler();
+
+        this
+            .updateCoordinateVectors();
+
+        this
+            .updatePlane();
 
     }
 
@@ -70,7 +105,7 @@ class Canvas {
             //only check when this bullet is close enough to improve performance
 
             if (bullet.isNearCanvas) {
-            //     console.log('checking');
+                //     console.log('checking');
                 let collidingPoints = this.checkCollision(bullet);
                 if (collidingPoints.length > 0) {
                     // console.log(collidingPoints);

@@ -24,13 +24,17 @@ class Cube {
         this.still(data);
         //upate' cloud
         this.material.wireframe = this.isFly;
+
+        if (this.isFly){
+            this.obj.material.color.setHex(Math.random() * 0xffffff);
+        }
     }
 
     reset() {
         this.ppos.set(0, 0, 0);
         this.pos.set(0, 0, 0);
         this.vel.set(0, 0, 0);
-        this.material.color.setHex(Math.random() * 0xffffff);
+        this.obj.material.color.setHex(Math.random() * 0xffffff);
         this.material.wireframe = false;
 
         this.obj.position.set(this.pos);
