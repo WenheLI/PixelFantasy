@@ -65,7 +65,7 @@ class ControlHand {
 
                     if (!this.prevHasHand) {
                         this.resetCenterPosition(this.pos);
-                        this.scene.add(this.surfCeaceObj);
+                        this.scene.add(this.surfaceObj);
                     }
 
 

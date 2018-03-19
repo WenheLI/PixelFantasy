@@ -1,5 +1,6 @@
 let ans = [];
 let bullets = [];
+let stillBullets = [];
 let canvases = [];
 
 const width = document.getElementById('three_canvas').clientWidth;
@@ -12,8 +13,13 @@ let renderer = new THREE.WebGLRenderer({canvas: document.getElementById('three_c
 renderer.setSize(width, height);
 
 // let left = new FunctionHand(scene, "left");
-let right = new ShootHand(scene, "left");
-let left = new ControlHand(scene, "right");
+let right = new ShootHand(scene, "right");
+
+right.cubes.forEach((cube) => {
+    stillBullets.push(new StillBullet(cube));
+});
+
+let left = new ControlHand(scene, "left");
 
 canvases.push(new Canvas(0, scene, 800, 400, 0, 0, -600, 0xffffff));
 // canvases.push(new Canvas(1, scene, 800, 400, 0, 0, -600, 0x222222));
@@ -33,17 +39,25 @@ let animate = function () {
     // bullets.forEach((bullet) => {
     //     bullet.update();
     // });
-    for (let i = 0; i < bullets.length; i++) {
-        bullets[i].update();
+    stillBullets.forEach((bullet) => {
+        bullet.update();
         canvases.forEach((canvas) => {
-            bullets[i].checkNearCanvas(canvas);
+            bullet.checkNearCanvas(canvas);
         });
-    }
+    });
+
+    bullets.forEach((bullet) => {
+        bullet.update();
+        canvases.forEach((canvas) => {
+            bullet.checkNearCanvas(canvas);
+        });
+    });
 
 
     canvases.forEach((canvas) => {
         canvas.updateTranslation(left);
         canvas.updateImprints(bullets);
+        canvas.updateImprints(stillBullets);
         // canvas.updateRotation();
     });
 
@@ -53,6 +67,12 @@ let animate = function () {
     for (let i = bullets.length - 1; i >= 0; i--) {
         if (bullets[i].isDead) {
             bullets.splice(i, 1);
+            // i--;
+        }
+    }
+    for (let i = stillBullets.length - 1; i >= 0; i--) {
+        if (stillBullets[i].cube.isFly) {
+            stillBullets.splice(i, 1);
             // i--;
         }
     }
