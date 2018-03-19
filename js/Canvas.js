@@ -23,7 +23,7 @@ class Canvas {
         this.frameObj.position.set(this.pos.x, this.pos.y, this.pos.z);
 
         this.scene.add(this.frameObj);
-        this.scene.add(this.surfaceObj);
+        // this.scene.add(this.surfaceObj);
 
 
         //following attributes for calculations

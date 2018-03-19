@@ -12,8 +12,8 @@ let renderer = new THREE.WebGLRenderer({canvas: document.getElementById('three_c
 renderer.setSize(width, height);
 
 // let left = new FunctionHand(scene, "left");
-let right = new ShootHand(scene, "left");
-let left = new ControlHand(scene, "right");
+let right = new ShootHand(scene, "right", colorPatterns["PastelMermaidTones"]);
+let left = new ControlHand(scene, "left");
 
 canvases.push(new Canvas(0, scene, 800, 400, 0, 0, -600, 0xffffff));
 // canvases.push(new Canvas(1, scene, 800, 400, 0, 0, -600, 0x222222));
@@ -58,7 +58,6 @@ let animate = function () {
     }
 
 };
-
 window.addEventListener('resize', () => {
     let windowHeight = window.innerHeight;
     let windowWidth = window.innerWidth;
@@ -66,6 +65,7 @@ window.addEventListener('resize', () => {
     renderer.setSize(windowWidth, windowHeight);
     camera.aspect = windowWidth / windowHeight;
     camera.updateProjectionMatrix();
+
     // console.log(camera.aspect);
 });
 

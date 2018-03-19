@@ -26,7 +26,7 @@ class Cube {
         this.material.wireframe = this.isFly;
 
         if (this.isFly){
-            this.obj.material.color.setHex(Math.random() * 0xffffff);
+            this.obj.material.color.setHex(this.color);
         }
     }
 
@@ -34,7 +34,7 @@ class Cube {
         this.ppos.set(0, 0, 0);
         this.pos.set(0, 0, 0);
         this.vel.set(0, 0, 0);
-        this.obj.material.color.setHex(Math.random() * 0xffffff);
+        this.obj.material.color.setHex(this.color);
         this.material.wireframe = false;
 
         this.obj.position.set(this.pos);
