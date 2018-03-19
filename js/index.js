@@ -66,6 +66,7 @@ let animate = function () {
 
     for (let i = bullets.length - 1; i >= 0; i--) {
         if (bullets[i].isDead) {
+            stillBullets.push(new StillBullet(bullets[i].cube));
             bullets.splice(i, 1);
             // i--;
         }

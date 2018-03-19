@@ -130,7 +130,7 @@ class Canvas {
                 let crossThreshold = 0.1;
                 if (Math.abs(pointToCenter.dot(this.unitVectorZ)) < crossThreshold) {
                     collidingPoints.push(pointToCenter);
-                    console.log("hit");
+                    // console.log("hit");
 
                 }
             })

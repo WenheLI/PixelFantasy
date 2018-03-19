@@ -102,7 +102,7 @@ class StillBullet {
 
     updatePointCloud() {
         if (this.isNearCanvas) {
-            console.log("update");
+            // console.log("update");
             for (let i = 0; i < this.pointCloud.length; i++) {
                 for (let j = 0; j < this.pointCloud[i].length; j++) {
                     this.pointCloud[i][j] = this.oriPointCloud[i][j].clone();

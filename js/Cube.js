@@ -38,6 +38,7 @@ class Cube {
         this.material.wireframe = false;
 
         this.obj.position.set(this.pos);
+        // console.log("reset");
     }
 
     checkVel(bullets) {
