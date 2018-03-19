@@ -85,7 +85,7 @@ class ControlHand {
     }
 
     updateRelativePosition() {
-        this.relativePos = this.pos.clone().sub(this.centerPos);
+        this.relativePos = this.pos.clone().sub(this.centerPos).multiplyScalar(2);
     }
 }
 

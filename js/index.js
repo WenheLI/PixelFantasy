@@ -13,7 +13,7 @@ let renderer = new THREE.WebGLRenderer({canvas: document.getElementById('three_c
 renderer.setSize(width, height);
 
 // let left = new FunctionHand(scene, "left");
-let right = new ShootHand(scene, "right");
+let right = new ShootHand(scene, "right", colorPatterns["PastelMermaidTones"]);
 
 right.cubes.forEach((cube) => {
     stillBullets.push(new StillBullet(cube));
