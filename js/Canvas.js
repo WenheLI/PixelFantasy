@@ -111,7 +111,7 @@ class Canvas {
                     // console.log(collidingPoints);
                     collidingPoints = this.transformToCanvasCoordinate(collidingPoints);
                     collidingPoints = this.sortWithJarvisMarch(collidingPoints);
-                    this.addImprints(collidingPoints, bullet.color);
+                    this.addImprints(collidingPoints, bullet.cube.color);
                 }
             }
         });

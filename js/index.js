@@ -21,7 +21,7 @@ right.cubes.forEach((cube) => {
 
 let left = new ControlHand(scene, "left");
 
-canvases.push(new Canvas(0, scene, 800, 400, 0, 0, -600, 0xffffff));
+canvases.push(new Canvas(0, scene, 600, 300, 0, 0, -500, 0xffffff));
 // canvases.push(new Canvas(1, scene, 800, 400, 0, 0, -600, 0x222222));
 
 camera.up = 1;

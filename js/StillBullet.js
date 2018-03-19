@@ -15,7 +15,7 @@ class StillBullet {
 
         this.instance = [];
 
-        this.generatePointCloud(this.size*10);
+        this.generatePointCloud(this.size*4);
 
     }
 

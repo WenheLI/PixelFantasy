@@ -31,7 +31,7 @@ class Bullet {
 
         this.scene.add(this.obj);
 
-        this.generatePointCloud(this.size*10);
+        this.generatePointCloud(this.size*4);
 
     }
 
@@ -62,7 +62,7 @@ class Bullet {
 
 
         if (this.vertices2D.length === 0) {
-            let s = this.size / 2;
+            let s = this.size / 1.5;
             this.vertices2D.push([new THREE.Vector3(s, s, s), new THREE.Vector3(s, s, -s), new THREE.Vector3(-s, s, -s), new THREE.Vector3(-s, s, s)]);
             this.vertices2D.push([new THREE.Vector3(s, -s, s), new THREE.Vector3(s, -s, -s), new THREE.Vector3(-s, -s, -s), new THREE.Vector3(-s, -s, s)]);
         }
