@@ -32,8 +32,9 @@ class ShootHand {
                 console.log(this.prevGrap, this.nowGrap);
                 if (this.prevGrap && !this.nowGrap) {
                     for (let i = 0; i < this.cubes.length; i++) {
-                        this.cubes[i].color = (colorPatterns[colorPatterns['keys'][this.colorIndex%4]][i%4]);
-                        this.cubes[i].obj.material.color.setHex(colorPatterns[colorPatterns['keys'][this.colorIndex%4]][i%4]);
+                        let size = colorPatterns["keys"].length;
+                        this.cubes[i].color = (colorPatterns[colorPatterns['keys'][this.colorIndex%size]][i%4]);
+                        this.cubes[i].obj.material.color.setHex(colorPatterns[colorPatterns['keys'][this.colorIndex%size]][i%4]);
                     }
                     this.colorIndex ++;
                 }

@@ -1,4 +1,4 @@
-class JarvisMarch {
+class PointsToShapeVertices {
     //the JarvisMarch class is built to sort an array of points
     //in the sorted order, they can be connected and build a polygon
     constructor(points) {
@@ -42,5 +42,42 @@ class JarvisMarch {
         }
         this.points = outputs;
         return outputs;
+    }
+
+    addNoise() {
+        let centerPoint = new THREE.Vector2(0, 0);
+        this.points.forEach((point) => {
+            centerPoint.add(point)
+        });
+        centerPoint.divideScalar(this.points.length);
+
+        let newPoints = [];
+        for (let i = 0; i < this.points.length; i++) {
+            newPoints.push(this.points[i]);
+            let newPoint = this.points[i].clone().add(this.points[(i + 1) % this.points.length].clone()).divideScalar(2);
+            newPoint.add(newPoint.clone().sub(centerPoint).multiplyScalar(Math.random() * 2));
+            newPoints.push(newPoint);
+        }
+
+        this.points = newPoints;
+    }
+
+    relocatePointOutOfCanvas(canvas) {
+        let width = canvas.size.x;
+        let height = canvas.size.y;
+
+        //relocate points that are outside of the canvas onto the canvas
+        this.points.forEach((point) => {
+                if (point.x > width / 2)
+                    point.x = width;
+                else if (point.x < -width / 2)
+                    point.x = -width / 2;
+
+                if (point.y > height / 2)
+                    point.y = height / 2;
+                else if (point.y < -height / 2)
+                    point.y = -height / 2;
+            }
+        );
     }
 }

@@ -111,7 +111,11 @@ class Canvas {
                     // console.log(collidingPoints);
                     collidingPoints = this.transformToCanvasCoordinate(collidingPoints);
                     collidingPoints = this.sortWithJarvisMarch(collidingPoints);
-                    this.addImprints(collidingPoints, bullet.cube.color);
+                    if (bullet instanceof StillBullet)
+                        this.addImprints(collidingPoints, bullet.cube.color);
+                    else
+                        this.addImprints(collidingPoints, bullet.color);
+
                 }
             }
         });
@@ -145,17 +149,6 @@ class Canvas {
         inputs.forEach((point) => {
             point.applyEuler(this.reverseEuler);
 
-            //relocate points that are outside of the canvas onto the canvas
-            if (point.x > this.size.x / 2)
-                point.x = this.size.x / 2;
-            else if (point.x < -this.size.x / 2)
-                point.x = -this.size.x / 2;
-
-            if (point.y > this.size.y / 2)
-                point.y = this.size.y / 2;
-            else if (point.y < -this.size.y / 2)
-                point.y = -this.size.y / 2;
-
             outputs.push(new THREE.Vector2(point.x, point.y));
         });
         return outputs;
@@ -163,7 +156,11 @@ class Canvas {
 
     sortWithJarvisMarch(inputs) {
         // console.log(inputs);
-        return new JarvisMarch(inputs).jarvisMarch();
+        let ptsv = new PointsToShapeVertices(inputs);
+        ptsv.jarvisMarch();
+        ptsv.addNoise();
+        ptsv.relocatePointOutOfCanvas(this);
+        return ptsv.points;
         // console.log(jm.jarvisMarch());
         // return jm.jarvisMarch();
     }
