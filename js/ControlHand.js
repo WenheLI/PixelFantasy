@@ -30,7 +30,7 @@ class ControlHand {
 
                     if (!this.hasHandOnce) {
                         this.hasHandOnce = true;
-                        this.scene.add(this.surfaceObj);
+                        // this.scene.add(this.surfaceObj);
                         // console.log(hand);
                     }
 
@@ -65,7 +65,7 @@ class ControlHand {
 
                     if (!this.prevHasHand) {
                         this.resetCenterPosition(this.pos);
-                        this.scene.add(this.surfaceObj);
+                        // this.scene.add(this.surfaceObj);
                     }
 
 

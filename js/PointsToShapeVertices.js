@@ -55,7 +55,7 @@ class PointsToShapeVertices {
         for (let i = 0; i < this.points.length; i++) {
             newPoints.push(this.points[i]);
             let newPoint = this.points[i].clone().add(this.points[(i + 1) % this.points.length].clone()).divideScalar(2);
-            newPoint.add(newPoint.clone().sub(centerPoint).multiplyScalar(Math.random() * 2));
+            newPoint.add(newPoint.clone().sub(centerPoint).multiplyScalar(Math.random() * 1.5));
             newPoints.push(newPoint);
         }
 
@@ -69,7 +69,7 @@ class PointsToShapeVertices {
         //relocate points that are outside of the canvas onto the canvas
         this.points.forEach((point) => {
                 if (point.x > width / 2)
-                    point.x = width;
+                    point.x = width / 2;
                 else if (point.x < -width / 2)
                     point.x = -width / 2;
 
