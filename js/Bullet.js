@@ -31,7 +31,7 @@ class Bullet {
 
         this.scene.add(this.obj);
 
-        this.generatePointCloud(this.size*4);
+        this.generatePointCloud(this.size*1.5);
 
     }
 

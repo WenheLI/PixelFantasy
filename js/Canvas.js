@@ -131,7 +131,7 @@ class Canvas {
             points.forEach((point) => {
                 let pointToCenter = new THREE.Vector3(point.x - this.pos.x, point.y - this.pos.y, point.z - this.pos.z);
                 // console.log(pointToCenter.dot(this.unitVectorZ));
-                let crossThreshold = 0.1;
+                let crossThreshold = 0.15;
                 if (Math.abs(pointToCenter.dot(this.unitVectorZ)) < crossThreshold) {
                     collidingPoints.push(pointToCenter);
                     // console.log("hit");
