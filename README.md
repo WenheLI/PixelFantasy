@@ -9,7 +9,7 @@ This project is for **Kinetic Interfaces** midterm cowork with mars_zhao.
 
 ## Video
 
-[![oops](https://img.youtube.com/vi/CoZa4juJYbQ/0.jpg)](https://img.youtube.com/vi/CoZa4juJYbQ/0.jpg)
+[![oops](https://img.youtube.com/vi/CoZa4juJYbQ/0.jpg)](https://www.youtube.com/watch?v=CoZa4juJYbQ)
 
 ## Instruction
 
