@@ -7,9 +7,9 @@ or shoot bullets onto the canvas.
 
 This project is for **Kinetic Interfaces** midterm cowork with mars_zhao.
 
-## Screenshots
+## Video
 
-![oops](./demo.gif)
+[![oops](https://img.youtube.com/vi/CoZa4juJYbQ/0.jpg)](https://img.youtube.com/vi/CoZa4juJYbQ/0.jpg)
 
 ## Instruction
 
